@@ -1,0 +1,40 @@
+﻿@model ResultVM
+@{
+    ViewData["Title"] = "Result";
+}
+
+<head>
+    <link rel="stylesheet" href="~/css/index.css">
+</head>
+
+<main>
+    <center>
+        <h4>Results</h4>
+        <form method="post">
+            <br>
+            <textarea id="multiLineText" name="multiLineText" rows="4" cols="50" readonly>@Model.Text</textarea><br><br>
+        </form>
+        <div class="row justify-content px-3 my-3">
+            <button type="button" class="btn-custom btn btn-success " onclick="downloadFile()">Download</button>
+        </div>
+        <script>
+            function downloadFile() {
+                const text = document.getElementById('multiLineText').value;
+                const blob = new Blob([text], { type: 'text/plain' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'Cipher Text.txt';
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+            }
+        </script>
+    </center>
+    <!-- Placeholder for displaying result -->
+    <div id="resultContainer">
+        
+    </div>
+
+</main>
